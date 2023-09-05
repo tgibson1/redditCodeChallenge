@@ -147,12 +147,6 @@ namespace code_challenge_reddit.Services
                 }
             }
         }
-
-        static void TrackStatistics(List<Child> posts)
-        {
-            // Implement your logic to track statistics here
-            // You can iterate through the posts and update your statistics accordingly
-        }
     }
 }
 

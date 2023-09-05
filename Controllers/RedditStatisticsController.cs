@@ -1,4 +1,5 @@
 using code_challenge_reddit.Model;
+using code_challenge_reddit.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace code_challenge_reddit.Controllers;
@@ -8,19 +9,28 @@ namespace code_challenge_reddit.Controllers;
 public class RedditStatisticsController : ControllerBase
 {
     private readonly ILogger<RedditStatisticsController> _logger;
+    private IRedditStatisticService _redditStatisticService;
 
-    public RedditStatisticsController(ILogger<RedditStatisticsController> logger)
+    public RedditStatisticsController(ILogger<RedditStatisticsController> logger,
+                                        IRedditStatisticService redditStatisticService)
     {
         _logger = logger;
+        _redditStatisticService = redditStatisticService;
     }
 
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<RedditStatistic> Get()
+    [HttpGet(Name = "GetPostsWithMostUpvotes")]
+    public async Task<ActionResult> GetPostsWithMostUpvotes()
     {
-        return Enumerable.Range(1, 5).Select(index => new RedditStatistic
-        {
-            
-        })
-        .ToArray();
+        var result = _redditStatisticService.GetPostsWithMostUpvotes();
+
+        return Ok(result);
     }
+
+    //[HttpGet(Name = "GetUsersWithMostPosts")]
+    //public async Task<ActionResult> GetUsersWithMostPosts()
+    //{
+    //    var result = _redditStatisticService.GetUsersWithMostPosts();
+
+    //    return Ok(result);
+    //}
 }
