@@ -17,18 +17,6 @@ namespace code_challenge_reddit.Services
         {
             _cacheUpdateService = cacheUpdateService;
         }
-        //public List<Child> GetPostsWithMostUpvotes()
-        //{
-        //    List<Child> mostUpVoted = null;
-        //    var _cache = _cacheUpdateService._cache;
-        //    if (_cache.TryGetValue("posts", out RedditPost posts))
-        //    {
-        //        mostUpVoted = posts.data.children?.OrderByDescending(p => p.data.ups).Take(10).ToList();
-        //    }
-        //    // Implement your logic to get posts with the most upvotes
-        //    // You can use LINQ to order the posts by upvotes and take the top N
-        //    return mostUpVoted;
-        //}
 
         public List<PostVM> GetPostsWithMostUpvotes()
         {
