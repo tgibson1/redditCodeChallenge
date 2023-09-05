@@ -81,36 +81,6 @@ namespace code_challenge_reddit.Services
             return mostUpvotes;
         }
 
-        //public Dictionary<string, int> GetUsersWithMostPosts()
-        //{
-        //    Dictionary<string, int> userPostDistribution;
-        //    var _cache = _cacheUpdateService._cache;
-        //    var userPostCount = new Dictionary<string, int>();
-
-        //    if (_cache.TryGetValue("posts", out RedditPost posts))
-        //    {
-                
-        //        foreach (var post in posts.data.children)
-        //        {
-        //            var author = post.data.author;
-        //            if (!string.IsNullOrWhiteSpace(author))
-        //            {
-        //                if (userPostCount.ContainsKey(author))
-        //                {
-        //                    userPostCount[author]++;
-        //                }
-        //                else
-        //                {
-        //                    userPostCount[author] = 1;
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    // Order the users by post count
-        //    return userPostCount.OrderByDescending(u => u.Value).Take(10).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-        //}
-
         public Dictionary<string, int> GetUsersWithMostPosts()
         {
             Dictionary<string, int> userPostCount = new Dictionary<string, int>();
