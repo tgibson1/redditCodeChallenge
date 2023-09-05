@@ -7,10 +7,10 @@ namespace code_challenge_reddit.Services
     public class CacheUpdateService : BackgroundService
     {
         public readonly IMemoryCache _cache;
-
         private readonly IRedditFeedService _redditFeedService;
         private readonly ILogger<CacheUpdateService> _logger;
-        private readonly CacheSettings _cacheSettings;
+        private readonly CacheSettings _cacheSettings; 
+        private readonly RedditFeedSettings _redditFeedSettings; 
 
         private Timer _cacheUpdateTimer;
 
@@ -18,12 +18,15 @@ namespace code_challenge_reddit.Services
             IRedditFeedService redditFeedService,
             ILogger<CacheUpdateService> logger,
             IMemoryCache cache,
-            IOptions<CacheSettings> cacheSettings)
+            IOptions<CacheSettings> cacheSettings,
+            IOptions<RedditFeedSettings> redditFeedSettings
+            )
         {
             _redditFeedService = redditFeedService;
             _logger = logger;
             _cache = cache;
             _cacheSettings = cacheSettings.Value;
+            _redditFeedSettings = redditFeedSettings.Value;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -41,10 +44,10 @@ namespace code_challenge_reddit.Services
         {
             try
             {
-                var redirects = _redditFeedService.GetRedditPosts();
+                var posts = await _redditFeedService.GetRedditPosts(_redditFeedSettings.Subreddit);
                 _cache.Set(
-                    "redirects",
-                    redirects,
+                    "posts",
+                    posts,
                     new MemoryCacheEntryOptions
                     {
                         AbsoluteExpirationRelativeToNow = _cacheSettings.CacheDuration

@@ -17,6 +17,7 @@ namespace code_challenge_reddit
             services.AddMemoryCache();
             services.AddSingleton<IRedditFeedService, RedditFeedService>();
             services.Configure<CacheSettings>(Configuration.GetSection("CacheSettings"));
+            services.Configure<RedditFeedSettings>(Configuration.GetSection("RedditFeedSettings"));
             services.AddSingleton<CacheUpdateService>();
             services.AddHostedService<CacheUpdateService>();
         }
