@@ -18,7 +18,7 @@ public class RedditStatisticsController : ControllerBase
         _redditStatisticService = redditStatisticService;
     }
 
-    [HttpGet(Name = "GetPostsWithMostUpvotes")]
+    [HttpGet("GetPostsWithMostUpvotes")]
     public async Task<ActionResult> GetPostsWithMostUpvotes()
     {
         var result = _redditStatisticService.GetPostsWithMostUpvotes();
@@ -26,11 +26,11 @@ public class RedditStatisticsController : ControllerBase
         return Ok(result);
     }
 
-    //[HttpGet(Name = "GetUsersWithMostPosts")]
-    //public async Task<ActionResult> GetUsersWithMostPosts()
-    //{
-    //    var result = _redditStatisticService.GetUsersWithMostPosts();
+    [HttpGet("GetUsersWithMostPosts")]
+    public async Task<ActionResult> GetUsersWithMostPosts()
+    {
+        var result = _redditStatisticService.GetUsersWithMostPosts();
 
-    //    return Ok(result);
-    //}
+        return Ok(result);
+    }
 }

@@ -46,9 +46,7 @@ namespace code_challenge_reddit.Services
                 {
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token.access_token);
                     _httpClient.DefaultRequestHeaders.Add("User-Agent", $"{_applicationName}/0.1 by {_userName}");
-                    //var response = await _httpClient.GetStringAsync($"{RedditBaseUrl}{subreddit}/about");
                     var response = await _httpClient.GetStringAsync($"{OauthBaseUrl}{subreddit}/new.json?limit=100");
-                    //var response = await _httpClient.GetStringAsync("https://oauth.reddit.com/api/v1/me");
                     result = ParsePosts(response);
                 }
             }

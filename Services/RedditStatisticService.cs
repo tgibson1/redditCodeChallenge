@@ -81,28 +81,87 @@ namespace code_challenge_reddit.Services
             return mostUpvotes;
         }
 
+        //public Dictionary<string, int> GetUsersWithMostPosts()
+        //{
+        //    Dictionary<string, int> userPostDistribution;
+        //    var _cache = _cacheUpdateService._cache;
+        //    var userPostCount = new Dictionary<string, int>();
+
+        //    if (_cache.TryGetValue("posts", out RedditPost posts))
+        //    {
+                
+        //        foreach (var post in posts.data.children)
+        //        {
+        //            var author = post.data.author;
+        //            if (!string.IsNullOrWhiteSpace(author))
+        //            {
+        //                if (userPostCount.ContainsKey(author))
+        //                {
+        //                    userPostCount[author]++;
+        //                }
+        //                else
+        //                {
+        //                    userPostCount[author] = 1;
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    // Order the users by post count
+        //    return userPostCount.OrderByDescending(u => u.Value).Take(10).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        //}
+
         public Dictionary<string, int> GetUsersWithMostPosts()
         {
-            Dictionary<string, int> userPostDistribution;
+            Dictionary<string, int> userPostCount = new Dictionary<string, int>();
             var _cache = _cacheUpdateService._cache;
-            var userPostCount = new Dictionary<string, int>();
+            _cache.TryGetValue("posts", out RedditPost redditPost);
 
-            if (_cache.TryGetValue("posts", out RedditPost posts))
+            // Check if the RedditPost object is not null
+            if (redditPost != null)
             {
-                
-                foreach (var post in posts.data.children)
+                // Traverse the children of the provided RedditPost.
+                foreach (var child in redditPost.data.children)
                 {
-                    var author = post.data.author;
-                    if (!string.IsNullOrWhiteSpace(author))
+                    if (child.kind == "t3") // Check if it's a post (t3 type).
                     {
-                        if (userPostCount.ContainsKey(author))
+                        var childPost = child.data;
+                        var author = childPost.author;
+
+                        if (!string.IsNullOrWhiteSpace(author))
                         {
-                            userPostCount[author]++;
+                            if (userPostCount.ContainsKey(author))
+                            {
+                                userPostCount[author]++;
+                            }
+                            else
+                            {
+                                userPostCount[author] = 1;
+                            }
                         }
-                        else
-                        {
-                            userPostCount[author] = 1;
-                        }
+
+                        // Traverse any potential replies within this child post.
+                        if (childPost.children != null)
+                            foreach (var reply in childPost.children)
+                            {
+                                if (reply.kind == "t3")
+                                {
+                                    var replyPost = reply.data;
+                                    var replyAuthor = replyPost.author;
+
+                                    if (!string.IsNullOrWhiteSpace(replyAuthor))
+                                    {
+                                        if (userPostCount.ContainsKey(replyAuthor))
+                                        {
+                                            userPostCount[replyAuthor]++;
+                                        }
+                                        else
+                                        {
+                                            userPostCount[replyAuthor] = 1;
+                                        }
+                                    }
+                                }
+                            }
                     }
                 }
             }
@@ -110,5 +169,6 @@ namespace code_challenge_reddit.Services
             // Order the users by post count
             return userPostCount.OrderByDescending(u => u.Value).Take(10).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         }
+
     }
 }
