@@ -91,9 +91,7 @@ namespace code_challenge_reddit.Services
 
             if (_cache.TryGetValue("posts", out RedditPost posts))
             {
-                // Implement your logic to get users with the most posts
-                // You can use a dictionary to track the post count for each user
-
+                
                 foreach (var post in posts.data.children)
                 {
                     var author = post.data.author;
