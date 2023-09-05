@@ -40,7 +40,7 @@ namespace code_challenge_reddit.Services
             {
                 // Reddit API request and response handling here
                 if (!IsValidToken(_token))
-                await GetAccessTokenAsync();
+                    await GetAccessTokenAsync();
 
                 if (IsValidToken(_token))
                 {

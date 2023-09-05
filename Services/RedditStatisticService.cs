@@ -1,7 +1,5 @@
 ﻿using code_challenge_reddit.Model;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Hosting;
-using System.Linq;
 
 namespace code_challenge_reddit.Services
 {
