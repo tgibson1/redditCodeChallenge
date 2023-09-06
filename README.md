@@ -3,7 +3,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/tgibson1/redditCodeChallenge)
 ![GitHub license](https://img.shields.io/github/license/tgibson1/redditCodeChallenge)
 
-This .NET 6/7 application listens to a selected subreddit in near real-time, collecting and tracking various statistics. It continuously consumes data from Reddit's REST APIs, adheres to rate limiting, and processes posts concurrently to ensure high throughput without blocking. The application calculates and reports the following statistics:
+This .NET 6 application listens to a selected subreddit in near real-time, collecting and tracking various statistics. It continuously consumes data from Reddit's REST APIs, adheres to rate limiting, and processes posts concurrently to ensure high throughput without blocking. The application calculates and reports the following statistics:
 
 1. Posts with the most upvotes.
 2. Users with the most posts.
