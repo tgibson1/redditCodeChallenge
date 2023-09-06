@@ -5,3 +5,7 @@
 /.vs
 /obj
 /bin/Debug/net6.0
+/redditCodeChallenge.api/bin/Debug/net6.0
+/redditCodeChallenge.api/obj
+/redditCodeChallenge.test/bin/Debug/net6.0
+/redditCodeChallenge.test/obj
